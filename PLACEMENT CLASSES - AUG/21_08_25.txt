@@ -1,0 +1,91 @@
+##SQL WORKBENCH ###
+
+create database ganesh;
+use ganesh;
+create table details(
+sid int,
+sname varchar(30),
+sphn int,
+semail varchar(30),
+sgender char(10)
+);
+show tables from ganesh;
+describe details;
+select * from details;
+insert into details (sid, sname, sphn, semail, sgender)
+VALUES (43140059, 'charan', 5876, 'charan@gmail.com', 'M'),(43140063, 'karthik', 5732, 'karthika@gmail.com', 'M'),(43110962, 'bhargav', 3809, 'bhargav@gmail.com', 'M');
+
+alter table details add
+		 column place char(20);
+
+
+update details 
+set sid = 0005
+WHERE sname = 'GANESHBHARADWAJ';
+
+update details
+set place='india'
+where sgender = 'm';
+
+update details 
+set sid = 4310015
+WHERE sname = 'GANESHBHARADWAJ';
+
+delete from details
+where sphn = 5876;
+
+truncate table details;
+
+drop table details;
+
+create table details(
+sid int,
+sname varchar(30),
+sphn int,
+semail varchar(30),
+sgender char(10)
+);
+
+insert into details (sid, sname, sphn, semail, sgender) values (1, 'ganesh', 8907, 'ganesh@gamil', 'm'),
+(1, 'charan', 8908, 'charan@gamil', 'm'),
+(1, 'harini', 8909, 'harini@gamil', 'm'),
+(1, 'bhargav', 8910, 'bhargav@gamil', 'm'),
+(1, 'vani', 8911, 'vani@gamil', 'm'),
+(1, 'karthik', 8912, 'karthik@gamil', 'm');
+
+select * from details;
+delete from details
+where sname = 'ganesh';
+
+start transaction;
+
+alter table details add column age int;
+
+update details
+set age = 19
+where sname='charan';
+
+update details
+set age = 20
+where sname='karthik';
+
+update details
+set age = 21
+where sname='vani';
+
+update details
+set age = 18
+where sname='harini';
+
+update details
+set age = 22
+where sname='bhargav';
+
+start transaction;
+savepoint bhargav;
+
+update details
+set sname = 'karthika'
+where semail = 'vani@gamil';
+
+rollback to bhargav;

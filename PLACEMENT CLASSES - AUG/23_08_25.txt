@@ -1,0 +1,117 @@
+#CONSTRAINTS #
+
+create database login_details;
+use login_details;
+create table details(
+	fname varchar(255) not null ,
+    mname varchar(255) ,
+    lname varchar(255) not null,
+    userid varchar(255) not null unique ,
+    password varchar(255) not null,
+    pmob int8 not null unique,
+    smob int8 unique );
+select * from details;
+
+
+
+    
+insert into details (fname, mname, lname, userid, password, pmob, smob)
+values ('charan', '', 'adepu', 'charan@adepu', 'charan123', 3457, 1431), ('karthik', '', 'anusuri', 'karthik@anusuri', 'karthik143', 4567, 8901);
+update details
+set pmob = 3457
+where fname='karthik';
+
+alter table details
+add check (fname <> '');
+
+update details
+set fname =''
+where pmob = 4567;
+insert into details (fname, mname, lname, userid, password, pmob, smob) values ('', '', 'bharadwaj', 'charan@adepu', 'ganesh123', 4567, 6789);
+
+desc details;
+
+#primary key Examples#
+
+alter table details
+add primary key (pmob);
+
+
+
+alter table details
+drop primary key ;
+
+#check constraints #
+
+alter table details 
+add constraint not_empty check(fname <> '');
+
+UPDATE details
+SET fname = ''
+WHERE userid = 'karthik@anusuri';
+
+select * from details;
+
+UPDATE details
+SET fname = 'karthik'
+WHERE userid = 'karthik@anusuri';
+
+UPDATE details
+SET fname = ''
+WHERE userid = 'karthik@anusuri';
+
+desc details;
+
+SHOW CREATE TABLE details;
+
+ALTER TABLE details
+ADD CONSTRAINT fname_not_empty CHECK (fname <> '');
+
+UPDATE details
+SET fname = ''
+WHERE userid = 'karthik@anusuri';
+
+#FORIEGN KEY#
+
+create database amazon;
+use amazon;
+#here categories is a parent#
+create table categories(
+	cid int8 not null primary key,
+    cname varchar(25) not null
+    );
+desc categories;
+
+insert into categories values (0001, 'electronics'),(0002, 'sports'),(0003,'furniture');
+select * from categories;
+use amazon;
+
+create table products(
+	pid int8 not null primary key,
+    pname varchar(25) not null,
+    pprice int8 not null,
+    cid int8,
+    foreign key (cid) references categories(cid)
+    on delete cascade
+    on update cascade
+);
+
+insert into products values(1, 'samsung tablet', 250000, 0001),(2,'sony camera', 100000, 0004),(3,'cricket kit',5000,0002),(4,'ikea table', 10000, 0003);
+
+insert into products values(1, 'samsung tablet', 250000, 0010),(2,'sony camera', 100000, 0010),(3,'cricket kit',5000,0002),(4,'ikea table', 10000, 0003);
+
+select * from products;
+
+update categories
+set cid = 0010
+where cid = 0001;
+
+
+select * from products;
+
+
+
+
+
+
+

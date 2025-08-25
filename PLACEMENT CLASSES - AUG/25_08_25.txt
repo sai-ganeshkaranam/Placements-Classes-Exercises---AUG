@@ -1,0 +1,83 @@
+#foriegn key - Connection Between three tables #
+
+create database Registrations;
+use registrations;
+create table colleges(
+  c_id int8 primary key,
+  cname varchar(25) not null
+  );
+
+insert into colleges values 
+(101, 'IIT MADRAS'),
+(102,'SATHYABAMA'),
+(103,'VIT');
+select * from colleges;
+drop table categories;
+
+create table Department(
+  d_id int8 primary key,
+  dname varchar(25) not null,
+  c_id int8 not null, 
+  foreign key (c_id) references colleges(c_id)
+  on update cascade 
+  on delete cascade 
+  );
+
+insert into department values 
+(501, 'EEE',101),
+(502,'ECE',102),
+(503,'CSE',103),
+(504,'AREOSPACE',103),
+(505,'CIVIL',101)
+;
+
+create table students(
+s_id int8 primary key,
+sname varchar(25) not null,
+c_id int8 not null,
+foreign key (c_id) references department(d_id)
+on update cascade
+on delete cascade);
+
+insert into students values 
+(43140015, 'ganesh',501),
+(43140002,'pradeep',502),
+(43140003,'mokshith',503),
+(43140004,'sachin',503),
+(505,'bhargav',504),
+(43140059,'charan',505),
+(43140063,'karthik',505)
+;
+
+delete from colleges 
+where c_id = 105;
+
+update colleges 
+set c_id = 105
+where cname = 'IIT MADRAS';
+
+select * from department;
+select * from students;
+select * from colleges;
+
+update department set d_id =510 where dname='EEE';
+
+#ALIAS##
+
+select sname as student_name
+from students;
+
+#LIKE OPERATOR#
+select dname from department where dname like 'a%' ;
+
+select cname from colleges where cname like 'sath%';
+
+select cname from colleges where cname like '%t';
+
+
+
+#VIEW OPERATOR#
+create view departments_name as 
+select  dname from department where d_id=502;
+
+select * from department;
