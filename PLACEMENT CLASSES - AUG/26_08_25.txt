@@ -1,0 +1,298 @@
+CREATE DATABASE Organisation;
+USE organisation;
+
+CREATE TABLE Worker (
+	WORKER_ID INT8 NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	FIRST_NAME CHAR(25),
+	LAST_NAME CHAR(25),
+	SALARY INT(15),
+	JOINING_DATE DATETIME,
+	DEPARTMENT CHAR(25)
+);
+
+INSERT INTO Worker 
+	(WORKER_ID, FIRST_NAME, LAST_NAME, SALARY, JOINING_DATE, DEPARTMENT) VALUES
+		(001, 'Monika', 'Arora', 100000, '14-02-20 09.00.00', 'HR'),
+		(002, 'Niharika', 'Verma', 80000, '14-06-11 09.00.00', 'Admin'),
+		(003, 'Vishal', 'Singhal', 300000, '14-02-20 09.00.00', 'HR'),
+		(004, 'Amitabh', 'Singh', 500000, '14-02-20 09.00.00', 'Admin'),
+		(005, 'Vivek', 'Bhati', 500000, '14-06-11 09.00.00', 'Admin'),
+		(006, 'Vipul', 'Diwan', 200000, '14-06-11 09.00.00', 'Account'),
+		(007, 'Satish', 'Kumar', 75000, '14-01-20 09.00.00', 'Account'),
+		(008, 'Geetika', 'Chauhan', 90000, '14-04-11 09.00.00', 'Admin');
+        
+##COMPARATOR OPERATOR###
+
+##GREATER THAN && LESSER THAN###
+
+select * from worker where salary>20000;
+
+Select * from worker where salary<20000;
+
+select * from worker where joining_date<'14-04-11';
+
+select * from worker where salary>100000;
+
+## greater Than and equal &&& lessthan and equal to ###
+
+select * from worker where salary>=200000;
+
+select * from worker where joining_date>='2014-02-20';
+
+select * from worker where joining_date<='2014-01-20';
+
+select * from worker where salary<=80000;
+
+## equal to && NOT equal to ###
+
+select * from worker where First_name = 'vivek';
+
+select * from worker where salary = 75000;
+
+select * from worker where salary !=90000;
+
+select * from worker where department = 'HR';
+
+select * from worker where department ='admin';
+
+select * from worker where department = 'account';
+
+###Logical Operator###
+
+select * from worker where department = 'admin' and joining_date='14-06-11 09.00.00';
+
+select * from worker where department = 'hr' and salary=100000;
+
+select * from worker where department = 'account' or salary =50000;
+
+select * from worker where joining_date = '2014-06-20' or department ='hr';
+
+
+SELECT DEPARTMENT, COUNT(*) AS NumberOfWorkers
+FROM Worker
+GROUP BY DEPARTMENT;
+
+### IN OPERATOR ## 
+
+select * from worker where department in ('hr','account');
+
+select * from worker where worker_id in (1,2,3,4) and salary>= 100000;
+
+
+### NOT IN OPERATOR ##
+
+select * from worker where worker_id not in (5,6,7) and department = 'account';
+
+### BETWEEN AND NOT IN BETWEEN ###
+
+select * from worker where salary between 70000 and 300000 and department = 'hr';
+
+select * from worker where joining_date between '2014-01-01' and '2014-04-11';
+
+select * from worker where joining_date between '2014-01-01' and '2014-04-11' and salary>=100000;
+
+select * from worker where joining_date not between '2014-02-20' and '2014-04-11' and department ='admin' and salary<=1000000;
+
+### 1. Find workers not in HR or Admin with salary between 70000 and 300000.
+
+select * from worker where department not in ('hr','admin') and salary between 70000 and 300000;
+
+### 2. Find workers with first name starting with 'V' and salary greater than or equal to 200000.
+
+select * from worker where first_name like 'v%' and salary>=200000; 
+
+### 3. Find workers not in Admin with salary < 100000.
+
+select * from worker where department not in ('admin') and salary<100000;
+
+
+### AGREGASATIONS ####
+
+##MIN() 
+
+select MIN(salary)  as lowest_salary_person from worker;
+
+select MIN(joining_date) as first_person_to_join_the_company from worker;
+
+##MAX()
+
+select MAX(salary) as highest_salary from worker;
+
+select MAX(joining_date) as last_person_to_join_the_company from worker;
+
+## SUM ## 
+
+select SUM(salary) as salary_expensives from worker;
+
+## count ## 
+
+select count(first_name) as EMPLOYEE_COUNT from worker;
+
+## average ##
+
+select avg(salary) as AVERAGE_salary from worker;
+
+## QUESTION : Find the Min salary of employee in hr department ##
+
+select min(salary) as min_salary_in_HR_DEPARTMENT from worker where department in ('hr');
+
+### 1. Find the average salary in the Admin department.
+
+select avg(salary) as avg_salary_in_admin_department from worker where department in ('admin');
+
+### 2. Total salary for HR and Admin departments combined.
+
+select  sum(salary) as sum_salary_in_hr_admin_departments from worker where department in ('admin','hr');
+
+### 4. Count employees whose first name starts with 'V'.
+
+select count(first_name) from worker where first_name like 'v%';
+
+### 5. Total salary of employees with salary between 50000 and 200000.
+
+select sum(salary) as salary_of_employees_with_salary_between_50000_and_200000 from worker where salary between 50000 and 200000;
+
+
+#### UNION ### 
+
+select first_name from worker
+union
+select last_name from worker;
+
+### UNION ALL ####
+
+CREATE TABLE example_worker (
+	WORKER_ID INT8 NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	FIRST_NAME CHAR(25),
+	LAST_NAME CHAR(25),
+	SALARY INT(15),
+	JOINING_DATE DATETIME,
+	DEPARTMENT CHAR(25)
+);
+
+INSERT INTO example_Worker 
+	(WORKER_ID, FIRST_NAME, LAST_NAME, SALARY, JOINING_DATE, DEPARTMENT) VALUES
+		(001, 'Monika', 'Arora', 100000, '14-02-20 09.00.00', 'HR'),
+		(002, 'Niharika', 'singh', 80000, '14-06-11 09.00.00', 'Admin'),
+		(003, 'Vishal', 'Singhal', 300000, '14-02-20 09.00.00', 'HR'),
+		(004, 'monika', 'Singh', 500000, '14-02-20 09.00.00', 'Admin'),
+		(005, 'Vivek', 'Bhati', 500000, '14-06-11 09.00.00', 'Admin'),
+		(006, 'Vipul', 'Diwan', 200000, '14-06-11 09.00.00', 'Account'),
+		(007, 'geethika', 'Kumar', 75000, '14-01-20 09.00.00', 'Account'),
+		(008, 'Geetika', 'Chauhan', 90000, '14-04-11 09.00.00', 'Admin');
+        
+select first_name from example_worker
+union all
+select last_name from example_worker;
+
+### CASE ### 
+
+select first_name,salary, case 
+     when salary>=500000 then 'rich'
+     when salary between 99999 and 500000 then 'avg'
+     else 'not good'
+end as status_BASED_ON_SALARY from worker;
+
+
+#### JAVA QUESTIONS ###
+
+1.Take values of length and breadth of a rectangle from user and check if it is square or not.
+
+
+import java.util.Scanner;
+
+public class SquareChecker {
+    public static void main(String[] args) {
+        
+        Scanner input = new Scanner(System.in);
+
+        
+        System.out.print("Enter the length of the rectangle: ");
+        double length = input.nextDouble();
+
+        
+        System.out.print("Enter the breadth of the rectangle: ");
+        double breadth = input.nextDouble();
+
+        
+        if (length == breadth) {
+            System.out.println("It is a square.");
+        } else {
+            System.out.println("It is not a square.");
+        }
+
+        
+        input.close();
+    }
+}
+
+2.A school has following rules for grading system:
+a. Below 25 - F
+b. 25 to 45 - E
+c. 45 to 50 - D
+d. 50 to 60 - C
+e. 60 to 80 - B
+f. Above 80 – A
+Ask user to enter marks and print the corresponding grade.
+
+import java.util.Scanner;
+
+public class GradingSystem {
+    public static void main(String[] args) {
+        
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter the marks: ");
+        double marks = scanner.nextDouble();
+
+        String grade;
+
+        if (marks > 80) {
+            grade = "A";
+        } else if (marks >= 60 && marks<80) {
+            grade = "B";
+        } else if (marks >= 50 && marks<60) {
+            grade = "C";
+        } else if (marks >= 45 && marks<50) {
+            grade = "D";
+        } else if (marks >= 25 && marks<45) {
+            grade = "E";
+        } else {
+            grade = "F";
+        }
+
+        System.out.println(" grade is: " + grade);
+
+        
+        scanner.close();
+    }
+
+}
+
+3.Write a program to print absolute vlaue of a number entered by user. E.g.-
+
+INPUT: 1        OUTPUT: 1
+
+INPUT: -1        OUTPUT: 1
+
+import java.util.Scanner;
+
+public class AbsoluteValue {
+    public static void main(String[] args) {
+        
+        Scanner scanner = new Scanner(System.in);
+
+        
+        System.out.print("Enter a number: ");
+        double number = scanner.nextDouble();
+
+        
+        double absoluteValue = Math.abs(number);
+
+        
+        System.out.println("The absolute value is: " + absoluteValue);
+
+        
+        scanner.close();
+    }
+}
