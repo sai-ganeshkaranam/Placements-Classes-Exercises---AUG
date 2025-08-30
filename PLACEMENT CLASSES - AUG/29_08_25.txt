@@ -1,0 +1,50 @@
+use registrations;
+
+create table colleges(
+  c_id int8 primary key,
+  cname varchar(25) not null
+  );
+
+insert into colleges values 
+(101, 'IIT MADRAS'),
+(102,'SATHYABAMA'),
+(103,'VIT');
+select * from colleges;
+drop table departments;
+
+create table Departments(
+  d_id int8 primary key,
+  dname varchar(25) not null
+  
+  );
+
+insert into departments values 
+(501,'EEE'),
+(102,'ECE'),
+(503,'CSE'),
+(504,'AREOSPACE'),
+(505,'CIVIL')
+;
+
+## cross join ##
+
+select * from colleges cross join department;
+
+### inner Join ###
+
+select * from colleges inner join departments where cname = d_id;
+
+
+### natural Join ###
+
+select * from colleges natural join departments where c_id = d_id;
+
+### outer join ###
+
+### left Outer
+
+select * from colleges left join departments on c_id = d_id;
+
+### Right outer Join  
+
+select * from colleges right join departments on c_id =
