@@ -1,0 +1,148 @@
+/// Multithreading
+
+package examples;
+import java.util.Scanner;
+public class MultiThreading {
+	public static void main(String args[]) {
+		// object creation for thread classes
+		Minute num = new Minute();
+		Seconds alp = new Seconds();
+
+		// start the thread
+		num.start();
+		alp.start();
+	
+	}
+
+}
+
+class Minute extends Thread {
+	int a = 0;
+
+	public void run() {
+
+		try {
+			for (int i = 0; i <= 59; i++) {
+				try {
+				System.out.println("Minutes : " + a);
+				a++;
+				Thread.sleep(120000);
+				}
+				catch(Exception e) {
+					System.out.println(e);
+				}
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+	}
+}
+
+class Seconds extends Thread {
+	int a=0;
+
+	public void run() {
+		try {
+			for (int i = 0; i <= 59; i++) {
+
+				try {
+				System.out.println("Seconds :" + a);
+				a++;
+				Thread.sleep(1000);
+				}
+				catch(Exception e) {
+					System.out.println("Issues in Minutes Thread class");
+				}
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+	}
+}
+
+//// Arrays
+
+package examples;
+
+public class Arrays {
+	public static void main(String args[]){
+	int[] intArray = { 1, 2, 3, 4, 5 };
+	String intArrayString = Arrays.toString(intArray);
+	private static String toString(int[] intArray2) {
+		
+		return null;
+	}
+}
+}
+System.out.println(intArrayString)
+
+ 
+System.out.println(intArrayString);
+
+//// Strings
+
+package examples;
+
+public class Strings {
+	public static void main(String args[]){
+	//uppercase && lowercasse
+	String s="Sachin";  
+	System.out.println(s.toUpperCase()); 
+	System.out.println(s.toLowerCase());  
+	System.out.println(s);
+	
+	//Trim
+	String name="  Bhargav is a play boy  ";  
+	System.out.println(name);
+	System.out.println(name.trim());  
+	
+	// startsWith() and endsWith() method
+	
+	String a="Bhargav";  
+	 System.out.println(a.startsWith("b"));  
+	 System.out.println(a.endsWith("N"));
+	 
+	 //charAt() method
+	 String m="Bhargav";  
+	 System.out.println(m.charAt(0)); 
+	 System.out.println(m.charAt(3));  
+	 
+	 //length() method  
+	 System.out.println(s.length());
+	 
+	 //Java String intern() method
+	 String k=new String("Sachin");  
+
+
+	 String k2=k.intern();  
+
+
+	 System.out.println(k2);
+	 
+	 //Java String valueOf() method
+	 int b=10;  
+	 String p=String.valueOf(b);  
+	 System.out.println(p+10);  
+	 
+	 //Java String replace() method
+	 
+	 String s1="Java is a programming language. Java is a platform. Java is an Island.";    
+	 String replaceString=s1.replace("Java","Python");//replaces all occurrences of "Java" to "Python"    
+	 System.out.println(replaceString);    
+	 
+	 //String Concatenation by concat() method
+}
+}
+class Teststringcomparison1{  
+	 public static void main(String args[]){  
+	   String s="Sachin";  
+	   String s1=new String("Sachin");  
+	   String s2="Saurav";  
+	   System.out.println(Password.equals(C.Password));//true  
+	   System.out.println(s1.equals(s3));//true  
+	   System.out.println(s1.equals(s4));//false  
+	 }  
+	}  
+
